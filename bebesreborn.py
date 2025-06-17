@@ -53,7 +53,7 @@ X = df[coluna_de_texto]
 y = df[coluna_de_classificacao]
 
 if len(y.unique()) < 2:
-write("\nERRO: A coluna de classificação precisa ter pelo menos duas classes distintas (ex: 'Comercial', 'Emocional').")
+  write("\nERRO: A coluna de classificação precisa ter pelo menos duas classes distintas (ex: 'Comercial', 'Emocional').")
 write(f"Classes encontradas: {y.unique()}")
 exit()
 
