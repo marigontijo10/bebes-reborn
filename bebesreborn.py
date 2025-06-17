@@ -35,7 +35,6 @@ write(df[[coluna_de_texto, coluna_de_classificacao]].head())
 df.dropna(subset=[coluna_de_texto, coluna_de_classificacao], inplace=True)
 write(f"\nNúmero de amostras após remover valores ausentes: {len(df)}")
 
-except FileNotFoundError:
 write(f"ERRO: O arquivo '{nome_arquivo_csv}' não foi encontrado.")
 exit()
 except Exception as e:
