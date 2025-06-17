@@ -4,7 +4,7 @@ import streamlit as st
 st.title("🍼 Visualizador de Matérias - Bebê Reborn")
 
 # Nome do arquivo CSV (certifique-se de que está no mesmo diretório)
-arquivo = "reborn.csv"
+arquivo = "reborn.csv.csv"
 
 try:
     df = pd.read_csv(arquivo)
