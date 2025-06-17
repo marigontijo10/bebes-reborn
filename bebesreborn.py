@@ -45,7 +45,7 @@ df["classificação"].unique()
 
 for column in df.columns:
 
-if df[column].dtype == 'object':
+  if df[column].dtype == 'object':
 
 df[column] = df[column].str.strip()
 
