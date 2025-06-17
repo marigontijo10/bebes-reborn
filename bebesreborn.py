@@ -12,7 +12,7 @@ coluna_de_texto = 'texto'
 coluna_de_classificacao = 'classificação'
 
 try:
-df = pd.read_csv(nome_arquivo_csv) 
+  df = pd.read_csv(nome_arquivo_csv) 
 write("Arquivo CSV carregado com sucesso!")
 
 df.columns = df.columns.str.strip()
