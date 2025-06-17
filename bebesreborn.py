@@ -37,7 +37,7 @@ write(f"\nNúmero de amostras após remover valores ausentes: {len(df)}")
 
 write(f"ERRO: O arquivo '{nome_arquivo_csv}' não foi encontrado.")
 exit()
-except Exception as e:
+
 write(f"Ocorreu um erro ao ler o arquivo CSV: {e}")
 exit()
 
