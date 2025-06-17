@@ -1,5 +1,7 @@
 import pandas as pd
 import streamlit as st
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 st.title("🍼 Visualizador de Matérias - Bebê Reborn")
 
@@ -31,6 +33,25 @@ try:
 
         st.markdown("### 🏷️ Classificação:")
         st.success(materia["classificação"])
+
+        # Gerar nuvem de palavras
+        st.markdown("### ☁️ Nuvem de Palavras:")
+        if pd.notna(materia["texto"]):
+            texto = materia["texto"]
+
+            wordcloud = WordCloud(
+                width=800,
+                height=400,
+                background_color='white',
+                stopwords=None
+            ).generate(texto)
+
+            fig, ax = plt.subplots(figsize=(10, 5))
+            ax.imshow(wordcloud, interpolation='bilinear')
+            ax.axis("off")
+            st.pyplot(fig)
+        else:
+            st.info("Texto da notícia vazio ou inválido.")
 
 except FileNotFoundError:
     st.error(f"Arquivo '{arquivo}' não encontrado. Verifique o nome e o local do arquivo.")
