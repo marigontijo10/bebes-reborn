@@ -20,7 +20,6 @@ def load_data(file_path):
         st.error(f"Ocorreu um erro ao ler o arquivo CSV: {e}")
         return pd.DataFrame()
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
 st.title("🍼 Visualizador de Matérias - Bebê Reborn")
 
 df = load_data("reborn.csv")
