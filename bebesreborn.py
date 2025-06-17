@@ -13,7 +13,8 @@ coluna_de_classificacao = 'classificação'
 
 try:
   df = pd.read_csv(nome_arquivo_csv) 
-write("Arquivo CSV carregado com sucesso!")
+finally: 
+  write("Arquivo CSV carregado com sucesso!")
 
 df.columns = df.columns.str.strip()
 write("\nNomes das colunas corrigidas (sem espaços):")
