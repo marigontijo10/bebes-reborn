@@ -1,3 +1,5 @@
+pip install wordcloud
+
 import pandas as pd
 import streamlit as st
 from wordcloud import WordCloud
