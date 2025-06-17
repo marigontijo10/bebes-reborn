@@ -26,7 +26,7 @@ if coluna_de_texto not in df.columns:
 exit()
 
 if coluna_de_classificacao not in df.columns:
-write(f"ERRO: A coluna '{coluna_de_classificacao}' não foi encontrada no arquivo.")
+  write(f"ERRO: A coluna '{coluna_de_classificacao}' não foi encontrada no arquivo.")
 exit()
 
 write("\nPrimeiras 5 linhas dos dados:")
