@@ -22,7 +22,7 @@ write(df.columns.tolist())
 
 
 if coluna_de_texto not in df.columns:
-write(f"ERRO: A coluna '{coluna_de_texto}' não foi encontrada no arquivo.")
+  write(f"ERRO: A coluna '{coluna_de_texto}' não foi encontrada no arquivo.")
 exit()
 
 if coluna_de_classificacao not in df.columns:
