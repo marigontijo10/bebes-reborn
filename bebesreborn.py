@@ -1,6 +1,3 @@
-pip install wordcloud matplotlib
-streamlit run seu_arquivo.py
-
 import pandas as pd
 import streamlit as st
 from wordcloud import WordCloud
