@@ -62,6 +62,7 @@ else:
         plt.figure(figsize=(10, 5))
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis("off")
+        st.pyplot(plt)
     else:
         st.warning("O texto está vazio, impossível gerar a nuvem de palavras.")
 
