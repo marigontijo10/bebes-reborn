@@ -47,7 +47,7 @@ for column in df.columns:
 
   if df[column].dtype == 'object':
 
-df[column] = df[column].str.strip()
+  df[column] = df[column].str.strip()
 
 X = df[coluna_de_texto]
 y = df[coluna_de_classificacao]
