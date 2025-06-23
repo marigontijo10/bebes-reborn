@@ -5,25 +5,40 @@ import matplotlib.pyplot as plt
 
 @st.cache_data
 def load_data(file_path):
-    """
-    Carrega um arquivo CSV grande e o armazena em cache.
-    Esta função será executada apenas uma vez, a menos que os parâmetros mudem
-    ou o cache seja invalidado.
-    """
     try:
         df = pd.read_csv(file_path)
         return df
     except FileNotFoundError:
         st.error(f"Erro: O arquivo '{file_path}' não foi encontrado.")
-        return pd.DataFrame() # Retorna um DataFrame vazio em caso de erro
+        return pd.DataFrame()
     except Exception as e:
         st.error(f"Ocorreu um erro ao ler o arquivo CSV: {e}")
         return pd.DataFrame()
 
+def classificar_texto_comercial_ou_emocional(texto):
+    texto = texto.lower()
+
+    palavras_comercial = [
+        'venda', 'comércio', 'comprar', 'produto', 'loja', 'negócio', 'anúncio',
+        'marketing', 'mercado', 'cliente', 'preço', 'e-commerce', 'divulgação'
+    ]
+    palavras_emocional = [
+        'mãe', 'filho', 'emoção', 'amor', 'carinho', 'sentimento', 'afetivo',
+        'família', 'adoção', 'tristeza', 'felicidade', 'depressão', 'solidão',
+        'psicológico', 'vínculo', 'empatia'
+    ]
+
+    if any(p in texto for p in palavras_emocional):
+        return 'Emocional'
+    elif any(p in texto for p in palavras_comercial):
+        return 'Comercial'
+    else:
+        return 'Não definido'
+
 st.title("🍼 Visualizador de Matérias - Bebê Reborn")
 
 df = load_data("reborn.csv")
-df.columns = df.columns.str.strip()  # Remove espaços dos nomes das colunas
+df.columns = df.columns.str.strip()
 
 if "titulo" not in df.columns:
     st.error("A coluna 'titulo' não foi encontrada no CSV.")
@@ -34,7 +49,6 @@ else:
 
     materia = df[df["titulo"] == escolha].iloc[0]
 
-    # Exibir data, notícia e classificação
     if "data" in df.columns:
         st.markdown(f"### 📅 Data: {materia['data']}")
     else:
@@ -43,10 +57,12 @@ else:
     st.markdown("### 📰 Notícia:")
     st.write(materia["texto"])
 
-    st.markdown("### 🏷️ Classificação:")
-    st.success(materia["classificação"])
+    # Classificação Comercial ou Emocional
+    classificacao = classificar_texto_comercial_ou_emocional(str(materia["texto"]))
+    st.markdown("### 🏷️ Classificação (Automática):")
+    st.success(classificacao)
 
-    # Geração da nuvem de palavras
+    # Nuvem de palavras
     st.markdown("### ☁️ Nuvem de Palavras:")
 
     texto = str(materia["texto"])
@@ -65,5 +81,3 @@ else:
         st.pyplot(plt)
     else:
         st.warning("O texto está vazio, impossível gerar a nuvem de palavras.")
-
-
