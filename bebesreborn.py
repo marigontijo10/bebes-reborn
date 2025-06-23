@@ -2,6 +2,9 @@ import pandas as pd
 import streamlit as st
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+
 
 # Configurações de página
 st.set_page_config(
