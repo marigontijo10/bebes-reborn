@@ -79,22 +79,29 @@ else:
     st.success(classificacao)
 
     # Nuvem de palavras
-    st.markdown("### ☁️ Palavras mais frequentes na notícia:")
+st.markdown("### ☁️ Palavras mais frequentes na notícia:")
 
-    texto = str(noticia["texto"])
-    if texto.strip():
-        wordcloud = WordCloud(
-            width=800,
-            height=400,
-            background_color='white',
-            stopwords=None,
-            collocations=False
-        ).generate(texto)
+texto = str(noticia["texto"])
+if texto.strip():
+    wordcloud = WordCloud(
+        width=800,
+        height=400,
+        background_color='white',
+        stopwords=None,
+        collocations=False
+    ).generate(texto)
 
-        fig, ax = plt.subplots(figsize=(10, 5))
-        ax.imshow(wordcloud, interpolation='bilinear')
-        ax.axis("off")
-        st.pyplot(fig)
+    # Garante que o matplotlib não esteja preso em outro estado
+    import matplotlib
+    matplotlib.use('Agg')  # Força o backend que não precisa de interface gráfica
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.imshow(wordcloud, interpolation='bilinear')
+    ax.axis("off")
+    st.pyplot(fig)
+else:
+    st.warning("O texto está vazio. Nuvem de palavras não pode ser gerada.")
+
     else:
         st.warning("O texto está vazio. Nuvem de palavras não pode ser gerada.")
 
