@@ -3,13 +3,14 @@ import streamlit as st
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
+# Configurações de página
 st.set_page_config(
-    page_title="Bebês Reborn - Visualizador de Notícias",
+    page_title="Visualizador de Notícias - Bebês Reborn",
     page_icon="🍼",
     layout="wide"
 )
 
-# --- Funções ---
+# Funções
 @st.cache_data
 def load_data(file_path):
     try:
@@ -41,46 +42,48 @@ def classificar_texto(texto):
     else:
         return '🔍 Não definido'
 
-# --- Título principal ---
-st.markdown("<h1 style='text-align: center; color: #6a1b9a;'>🍼 Visualizador de Matérias sobre Bebês Reborn</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 18px;'>Explore notícias, veja classificações e descubra os temas mais frequentes com uma nuvem de palavras.</p>", unsafe_allow_html=True)
-st.markdown("---")
+# Título do App
+st.markdown("""
+    <div style="text-align: center; padding: 20px;">
+        <h1 style="color: #7B1FA2;">🍼 Notícias sobre Bebês Reborn</h1>
+        <p style="font-size: 18px; color: #555;">Explore as notícias, entenda os temas por trás das reportagens e visualize os termos mais recorrentes!</p>
+    </div>
+""", unsafe_allow_html=True)
 
-# --- Carregamento dos dados ---
+# Carregamento de dados
 df = load_data("reborn.csv")
 df.columns = df.columns.str.strip()
 
-# --- Interface principal ---
 if "titulo" not in df.columns:
     st.error("A coluna 'titulo' não foi encontrada no CSV.")
 else:
-    col1, col2 = st.columns([1, 3])
+    col1, col2 = st.columns([1, 2.5], gap="large")
 
     with col1:
-        st.subheader("🗂️ Selecione uma notícia:")
+        st.subheader("🗂️ Escolha uma notícia:")
         opcoes = df["titulo"].dropna().unique()
-        escolha = st.selectbox("Escolha um título:", opcoes)
+        escolha = st.selectbox("Selecione o título da notícia:", opcoes)
 
-    materia = df[df["titulo"] == escolha].iloc[0]
+    noticia = df[df["titulo"] == escolha].iloc[0]
 
     with col2:
-        if "data" in df.columns:
-            st.markdown(f"<p style='font-size: 16px;'>📅 <strong>Data:</strong> {materia['data']}</p>", unsafe_allow_html=True)
-        else:
-            st.warning("Coluna 'data' não encontrada no CSV.")
+        st.markdown("### 📰 Notícia completa")
+        st.markdown(f"""
+            <div style="background-color: #F3E5F5; padding: 20px; border-radius: 10px; color: #4A148C;">
+                <p style="margin-bottom: 10px;"><strong>📅 Data:</strong> {noticia.get("data", "Data não disponível")}</p>
+                <p style="text-align: justify;">{noticia["texto"]}</p>
+            </div>
+        """, unsafe_allow_html=True)
 
-        st.markdown("### 📰 Notícia:")
-        st.markdown(f"<div style='background-color: #f6f6f6; padding: 15px; border-radius: 10px;'>{materia['texto']}</div>", unsafe_allow_html=True)
+    # Classificação automática
+    st.markdown("### 🏷️ Classificação da notícia:")
+    classificacao = classificar_texto(str(noticia["texto"]))
+    st.success(classificacao)
 
-        # Classificação automática
-        classificacao = classificar_texto(str(materia["texto"]))
-        st.markdown("### 🏷️ Classificação:")
-        st.success(classificacao)
+    # Nuvem de palavras
+    st.markdown("### ☁️ Palavras mais frequentes na notícia:")
 
-    # --- Nuvem de palavras ---
-    st.markdown("### ☁️ Nuvem de Palavras:")
-    texto = str(materia["texto"])
-
+    texto = str(noticia["texto"])
     if texto.strip():
         wordcloud = WordCloud(
             width=800,
@@ -95,11 +98,13 @@ else:
         ax.axis("off")
         st.pyplot(fig)
     else:
-        st.warning("O texto está vazio, impossível gerar a nuvem de palavras.")
+        st.warning("O texto está vazio. Nuvem de palavras não pode ser gerada.")
 
-# --- Rodapé ---
+# Rodapé
 st.markdown("---")
-st.markdown(
-    "<p style='text-align: center; color: gray; font-size: 14px;'>Feito com ❤️ usando Streamlit | Projeto Bebês Reborn</p>",
-    unsafe_allow_html=True
-)
+st.markdown("""
+    <p style='text-align: center; font-size: 14px; color: #888;'>
+        Feito com ❤️ por Mariana Gontijo | Projeto de análise de notícias sobre bebês reborn
+    </p>
+""", unsafe_allow_html=True)
+
