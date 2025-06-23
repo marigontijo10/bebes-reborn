@@ -37,15 +37,13 @@ def classificar_texto(texto):
 
     if any(p in texto for p in palavras_emocional):
         return '🧠 Emocional'
-    elif any(p in texto for p in palavras_comercial):
-        return '💰 Comercial'
     else:
-        return '🔍 Não definido'
+        return '💰 Comercial'  # padrão quando não encontra palavras emocionais
 
 # Título do App
 st.markdown("""
     <div style="text-align: center; padding: 20px;">
-        <h1 style="color: #7B1FA2;">🍼 Notícias sobre Bebês Reborn</h1>
+        <h1 style="color: #7B1FA2;">🍼 Visualizador de Notícias - Bebês Reborn</h1>
         <p style="font-size: 18px; color: #555;">Explore as notícias, entenda os temas por trás das reportagens e visualize os termos mais recorrentes!</p>
     </div>
 """, unsafe_allow_html=True)
@@ -107,4 +105,5 @@ st.markdown("""
         Feito com ❤️ por Mariana Gontijo | Projeto de análise de notícias sobre bebês reborn
     </p>
 """, unsafe_allow_html=True)
+
 
