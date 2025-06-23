@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 # Configurações de página
 st.set_page_config(
-    page_title="Visualizador de Notícias - Bebês Reborn",
+    page_title="Classificador de Notícias - Bebês Reborn",
     page_icon="🍼",
     layout="wide"
 )
@@ -43,7 +43,7 @@ def classificar_texto(texto):
 # Título do App
 st.markdown("""
     <div style="text-align: center; padding: 20px;">
-        <h1 style="color: #7B1FA2;">🍼 Visualizador de Notícias - Bebês Reborn</h1>
+        <h1 style="color: #000000;">🍼 Classificador de Notícias - Bebês Reborn</h1>
         <p style="font-size: 18px; color: #555;">Explore as notícias, entenda os temas por trás das reportagens e visualize os termos mais recorrentes!</p>
     </div>
 """, unsafe_allow_html=True)
@@ -98,12 +98,4 @@ else:
     else:
         st.warning("O texto está vazio. Nuvem de palavras não pode ser gerada.")
 
-# Rodapé
-st.markdown("---")
-st.markdown("""
-    <p style='text-align: center; font-size: 14px; color: #888;'>
-        Feito com ❤️ por Mariana Gontijo | Projeto de análise de notícias sobre bebês reborn
-    </p>
-""", unsafe_allow_html=True)
-
-
+# --- Rodapé removido como solicitado ---
