@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-from wordcloud import WordCloud
+from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('Agg')  # Backend compatível com Streamlit Cloud
@@ -85,11 +85,15 @@ else:
 
     texto = str(noticia["texto"])
     if texto.strip():
+        stopwords = set(STOPWORDS)
+        # Adicione mais palavras irrelevantes se quiser, por exemplo:
+        # stopwords.update(["reborn", "boneca", "diz"])
+
         wordcloud = WordCloud(
             width=800,
             height=400,
             background_color='white',
-            stopwords=None,
+            stopwords=stopwords,
             collocations=False
         ).generate(texto)
 
@@ -99,3 +103,4 @@ else:
         st.pyplot(fig)
     else:
         st.warning("O texto está vazio. Nuvem de palavras não pode ser gerada.")
+
