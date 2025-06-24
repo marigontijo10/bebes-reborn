@@ -86,8 +86,16 @@ else:
     texto = str(noticia["texto"])
     if texto.strip():
         stopwords = set(STOPWORDS)
-        # Adicione mais palavras irrelevantes se quiser, por exemplo:
-        # stopwords.update(["reborn", "boneca", "diz"])
+        stopwords_pt = {
+            "a", "à", "às", "ao", "aos", "aquela", "aquele", "aquilo", "com", "como",
+            "da", "das", "de", "dela", "dele", "deles", "delas", "do", "dos", "e", "em",
+            "entre", "essa", "esse", "isso", "isto", "já", "lá", "mas", "me", "mesmo",
+            "na", "nas", "não", "no", "nos", "nós", "o", "os", "ou", "para", "pela",
+            "pelas", "pelo", "pelos", "por", "que", "se", "sem", "ser", "seu", "sua",
+            "são", "também", "te", "tem", "têm", "toda", "todo", "tudo", "um", "uma",
+            "você", "vocês", "foi", "era", "é", "só", "há", "às", "aos", "mais", "muito"
+        }
+        stopwords.update(stopwords_pt)
 
         wordcloud = WordCloud(
             width=800,
@@ -103,4 +111,3 @@ else:
         st.pyplot(fig)
     else:
         st.warning("O texto está vazio. Nuvem de palavras não pode ser gerada.")
-
